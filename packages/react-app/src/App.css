@@ -1,4 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat&family=Lato&family=Philosopher:ital,wght@0,700;1,400&family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+
 .App {
   text-align: center;
   padding-left: calc(100vw - 100%);
+}
+body {
+  background: rgb(246, 235, 237) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(246, 235, 237, 1) 1%,
+    rgba(233, 220, 221, 1) 44%,
+    rgba(230, 217, 218, 1) 100%
+  ) !important;
+  /* backdrop-filter: blur(100px) !important; */
+}
+.hero-heading span {
+  text-decoration: underline;
+  text-decoration-thickness: 8px;
+  /* text-decoration: none;
+  border-bottom: 10px solid black; */
+  color: #6e6ece;
+}
+.heading {
+  filter: drop-shadow(rgba(0, 0, 0, 0.55) 0px 5px 15px);
+}
+.h-shadow-white {
+  filter: drop-shadow(rgba(255, 255, 255, 0.55) 0px 5px 15px);
+}
+.hero-heading {
+  font-weight: 700 !important;
+  font-size: 5.3rem !important;
+}
+.d-bg {
+  background: rgb(12, 20, 36);
+  /* background: linear-gradient(90deg, #101a2f 18%, #0b090f 100%, rgb(16, 26, 47) 30%);
+  background: rgb(16,26,47); */
+  background: linear-gradient(286deg, rgba(16, 26, 47, 1) 18%, rgba(11, 9, 15, 1) 54%, rgba(16, 26, 47, 1) 95%);
+}
+.h-shadow {
+  filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 5px 3px) !important;
+}
+.h-shadow-white {
+  filter: drop-shadow(rgba(255, 255, 255, 0.4) 0px 5px 3px) !important;
+}
+p {
+  margin-bottom: 0px !important;
+}
+.btn-gradient {
+  background: linear-gradient(73.28deg, #8247e5 6.51%, #6027c0 88.45%) !important;
+  color: white;
 }

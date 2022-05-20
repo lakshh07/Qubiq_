@@ -1,46 +1,9 @@
-import { Button } from "antd";
+import { Box, Button, Flex, Tag } from "@chakra-ui/react";
 import React from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
-
-import Address from "./Address";
-import Balance from "./Balance";
-import Wallet from "./Wallet";
-
-/** 
-  ~ What it does? ~
-
-  Displays an Address, Balance, and Wallet as one Account component,
-  also allows users to log in to existing accounts and log out
-
-  ~ How can I use? ~
-
-  <Account
-    useBurner={boolean}
-    address={address}
-    localProvider={localProvider}
-    userProvider={userProvider}
-    mainnetProvider={mainnetProvider}
-    price={price}
-    web3Modal={web3Modal}
-    loadWeb3Modal={loadWeb3Modal}
-    logoutOfWeb3Modal={logoutOfWeb3Modal}
-    blockExplorer={blockExplorer}
-    isContract={boolean}
-  />
-
-  ~ Features ~
-
-  - Provide address={address} and get balance corresponding to the given address
-  - Provide localProvider={localProvider} to access balance on local network
-  - Provide userProvider={userProvider} to display a wallet
-  - Provide mainnetProvider={mainnetProvider} and your address will be replaced by ENS name
-              (ex. "0xa870" => "user.eth")
-  - Provide price={price} of ether and get your balance converted to dollars
-  - Provide web3Modal={web3Modal}, loadWeb3Modal={loadWeb3Modal}, logoutOfWeb3Modal={logoutOfWeb3Modal}
-              to be able to log in/log out to/from existing accounts
-  - Provide blockExplorer={blockExplorer}, click on address and get the link
-              (ex. by default "https://etherscan.io/" or for xdai "https://blockscout.com/poa/xdai/")
-**/
+import { NETWORK } from "../constants";
+import truncateMiddle from "truncate-middle";
+import { AiOutlineLogout } from "react-icons/ai";
 
 export default function Account({
   useBurner,
@@ -54,6 +17,7 @@ export default function Account({
   loadWeb3Modal,
   logoutOfWeb3Modal,
   blockExplorer,
+  selectedChainId,
   isContract,
 }) {
   const { currentTheme } = useThemeSwitcher();
@@ -62,24 +26,33 @@ export default function Account({
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
-        <Button
+        <Tag
           key="logoutbutton"
-          style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
-          shape="round"
-          size="large"
+          bg="#2C242C"
+          boxShadow="rgba(100, 100, 111, 0.3) 0px 7px 29px 0px"
+          color="white"
+          cursor="pointer"
+          fontFamily="Montserrat"
+          p="0.6em"
+          textTransform="capitalize"
+          fontSize="15px"
+          _hover={{ bg: "blackAlpha.900", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
           onClick={logoutOfWeb3Modal}
         >
-          logout
-        </Button>,
+          <AiOutlineLogout />
+        </Tag>,
       );
     } else {
       modalButtons.push(
         <Button
           key="loginbutton"
-          style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
-          shape="round"
-          size="large"
-          /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
+          bg="black"
+          boxShadow="rgba(100, 100, 111, 0.3) 0px 7px 29px 0px"
+          color="white"
+          _hover={{ bg: "blackAlpha.900", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
+          _focus={{ border: "none" }}
+          _active={{ bg: "blackAlpha.900" }}
+          fontFamily="Montserrat"
           onClick={loadWeb3Modal}
         >
           connect
@@ -87,56 +60,39 @@ export default function Account({
       );
     }
   }
-  const display = minimized ? (
-    ""
-  ) : (
-    <span>
-      {web3Modal && web3Modal.cachedProvider ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          <Balance address={address} provider={localProvider} price={price} />
-          <Wallet
-            address={address}
-            provider={localProvider}
-            signer={userSigner}
-            ensProvider={mainnetProvider}
-            price={price}
-            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
-        </>
-      ) : useBurner ? (
-        ""
-      ) : isContract ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          <Balance address={address} provider={localProvider} price={price} />
-        </>
-      ) : (
-        ""
-      )}
-      {useBurner && web3Modal && !web3Modal.cachedProvider ? (
-        <>
-          <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
-          <Balance address={address} provider={localProvider} price={price} />
-          <Wallet
-            address={address}
-            provider={localProvider}
-            signer={userSigner}
-            ensProvider={mainnetProvider}
-            price={price}
-            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
-        </>
-      ) : (
-        <></>
-      )}
-    </span>
-  );
 
   return (
-    <div>
-      {display}
-      {modalButtons}
-    </div>
+    <>
+      <Flex alignItems="center">
+        {address !== "0x239136f477606A47d770A87fC6fE3FE85c1AE5F8" && (
+          <Box>
+            <Tag
+              bg={NETWORK(selectedChainId)?.color}
+              boxShadow="rgba(100, 100, 111, 0.3) 0px 7px 29px 0px"
+              color="white"
+              fontFamily="Montserrat"
+              p="0.5em"
+              textTransform="capitalize"
+              fontSize="15px"
+            >
+              {NETWORK(selectedChainId)?.name}
+            </Tag>
+            <Tag
+              mx="12px"
+              bg="#2C242C"
+              boxShadow="rgba(100, 100, 111, 0.3) 0px 7px 29px 0px"
+              color="white"
+              fontFamily="Montserrat"
+              p="0.5em"
+              textTransform="capitalize"
+              fontSize="15px"
+            >
+              {truncateMiddle(address || "", 5, 4, "...")}
+            </Tag>
+          </Box>
+        )}
+        {modalButtons}
+      </Flex>
+    </>
   );
 }

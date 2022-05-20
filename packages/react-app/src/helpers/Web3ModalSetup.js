@@ -1,9 +1,11 @@
 import Portis from "@portis/web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import * as UAuthWeb3Modal from "@uauth/web3modal";
 import Authereum from "authereum";
 import Fortmatic from "fortmatic";
 import WalletLink from "walletlink";
 import Web3Modal from "web3modal";
+import UAuthSPA from "@uauth/js";
 import { ALCHEMY_KEY, INFURA_ID } from "../constants";
 
 // Coinbase walletLink init
@@ -18,6 +20,14 @@ const walletLinkProvider = walletLink.makeWeb3Provider(`https://eth-mainnet.alch
 /**
   Web3 modal helps us "connect" external wallets:
 **/
+const uauthOptions = {
+  clientID: "client_id",
+  redirectUri: "http://localhost:3000",
+
+  // Must include both the openid and wallet scopes.
+  scope: "openid wallet",
+};
+
 const web3ModalSetup = () =>
   new Web3Modal({
     network: "mainnet", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
@@ -50,11 +60,24 @@ const web3ModalSetup = () =>
           id: "6255fb2b-58c8-433b-a2c9-62098c05ddc9",
         },
       },
-      fortmatic: {
-        package: Fortmatic, // required
-        options: {
-          key: "pk_live_5A7C91B2FC585A17", // required
-        },
+      // fortmatic: {
+      //   package: Fortmatic, // required
+      //   options: {
+      //     key: "pk_live_5A7C91B2FC585A17", // required
+      //   },
+      // },
+      "custom-uauth": {
+        // The UI Assets
+        display: UAuthWeb3Modal.display,
+
+        // The Connector
+        connector: UAuthWeb3Modal.connector,
+
+        // The SPA libary
+        package: UAuthSPA,
+
+        // The SPA libary options
+        options: uauthOptions,
       },
       // torus: {
       //   package: Torus,

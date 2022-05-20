@@ -68,7 +68,7 @@ export const NETWORKS = {
   },
   polygon: {
     name: "polygon",
-    color: "#2bbdf7",
+    color: "purple",
     chainId: 137,
     price: 1,
     gasPrice: 1000000000,
@@ -77,7 +77,7 @@ export const NETWORKS = {
   },
   mumbai: {
     name: "mumbai",
-    color: "#92D9FA",
+    color: "purple",
     chainId: 80001,
     price: 1,
     gasPrice: 1000000000,
