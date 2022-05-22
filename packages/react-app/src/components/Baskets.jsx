@@ -3,9 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import basketpic from "../assets/basket.png";
 
-function Baskets() {
-  const basket = ["stable coins", "Baskets", "large market caps", "popular coins", "small market caps"];
-
+function Baskets({ basket }) {
   const navigate = useNavigate();
   return (
     <>

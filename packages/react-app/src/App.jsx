@@ -38,6 +38,7 @@ import Subscribe from "./components/Subscribe";
 import BasketDetail from "./components/BasketDetail";
 import Composition from "./components/Composition";
 import Navbar from "./components/Navbar";
+import CreateBasket from "./components/CreateBasket";
 
 const { ethers } = require("ethers");
 /*
@@ -277,6 +278,18 @@ function App(props) {
           exact
           path="/app"
           element={<DApp selectedChainId={selectedChainId} logoutOfWeb3Modal={logoutOfWeb3Modal} address={address} />}
+        ></Route>
+        <Route
+          exact
+          path="/app/create"
+          element={
+            <CreateBasket
+              injectedProvider={injectedProvider}
+              selectedChainId={selectedChainId}
+              logoutOfWeb3Modal={logoutOfWeb3Modal}
+              address={address}
+            />
+          }
         ></Route>
         <Route exact path="/app/subscribe">
           <Route

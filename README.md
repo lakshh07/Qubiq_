@@ -1,4 +1,7 @@
-# 🏗 Scaffold-ETH
+# Qubiq ✨
+Qubiq permits retail investors to take a position in custom thematic baskets and dollar value averages their Crypto Investments with the clicking of one button!
+
+### 🏗 Scaffold-ETH
 
 > everything you need to build on Ethereum! 🚀
 

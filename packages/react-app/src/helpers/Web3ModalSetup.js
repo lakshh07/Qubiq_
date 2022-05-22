@@ -1,8 +1,5 @@
-import Portis from "@portis/web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import * as UAuthWeb3Modal from "@uauth/web3modal";
-import Authereum from "authereum";
-import Fortmatic from "fortmatic";
 import WalletLink from "walletlink";
 import Web3Modal from "web3modal";
 import UAuthSPA from "@uauth/js";
@@ -16,15 +13,9 @@ const walletLink = new WalletLink({
 // WalletLink provider
 const walletLinkProvider = walletLink.makeWeb3Provider(`https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`, 1);
 
-// Portis ID: 6255fb2b-58c8-433b-a2c9-62098c05ddc9
-/**
-  Web3 modal helps us "connect" external wallets:
-**/
 const uauthOptions = {
-  clientID: "client_id",
+  clientID: process.env.CLIENTID,
   redirectUri: "http://localhost:3000",
-
-  // Must include both the openid and wallet scopes.
   scope: "openid wallet",
 };
 
@@ -49,23 +40,6 @@ const web3ModalSetup = () =>
           },
         },
       },
-      portis: {
-        display: {
-          logo: "https://user-images.githubusercontent.com/9419140/128913641-d025bc0c-e059-42de-a57b-422f196867ce.png",
-          name: "Portis",
-          description: "Connect to Portis App",
-        },
-        package: Portis,
-        options: {
-          id: "6255fb2b-58c8-433b-a2c9-62098c05ddc9",
-        },
-      },
-      // fortmatic: {
-      //   package: Fortmatic, // required
-      //   options: {
-      //     key: "pk_live_5A7C91B2FC585A17", // required
-      //   },
-      // },
       "custom-uauth": {
         // The UI Assets
         display: UAuthWeb3Modal.display,
@@ -79,19 +53,6 @@ const web3ModalSetup = () =>
         // The SPA libary options
         options: uauthOptions,
       },
-      // torus: {
-      //   package: Torus,
-      //   options: {
-      //     networkParams: {
-      //       host: "https://localhost:8545", // optional
-      //       chainId: 1337, // optional
-      //       networkId: 1337 // optional
-      //     },
-      //     config: {
-      //       buildEnv: "development" // optional
-      //     },
-      //   },
-      // },
       "custom-walletlink": {
         display: {
           logo: "https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0",
@@ -103,9 +64,6 @@ const web3ModalSetup = () =>
           await provider.enable();
           return provider;
         },
-      },
-      authereum: {
-        package: Authereum, // required
       },
     },
   });

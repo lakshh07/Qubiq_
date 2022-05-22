@@ -1,22 +1,11 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Tables from "./Tables";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 
-function BasketDetail({ address, logoutOfWeb3Modal, selectedChainId }) {
+function BasketDetail({ address, logoutOfWeb3Modal, selectedChainId, data, changeCompo, exit }) {
   const navigate = useNavigate();
   const { basketname } = useParams();
 
@@ -27,33 +16,6 @@ function BasketDetail({ address, logoutOfWeb3Modal, selectedChainId }) {
   React.useEffect(() => {
     console.log(value);
   }, [value]);
-
-  const data = React.useMemo(
-    () => [
-      {
-        id: 12,
-        token: "millimetres (mm)",
-        weight: 25.4,
-        amount: 0.134,
-        value: 1.32,
-      },
-      {
-        id: 32,
-        token: "centimetres (cm)",
-        weight: 30.48,
-        amount: 0.034,
-        value: 1.92,
-      },
-      {
-        id: 11,
-        token: "metres (m)",
-        weight: 0.91444,
-        amount: 0.334,
-        value: 1.4,
-      },
-    ],
-    [],
-  );
 
   const columns = React.useMemo(
     () => [
@@ -128,6 +90,7 @@ function BasketDetail({ address, logoutOfWeb3Modal, selectedChainId }) {
                     mt="4em"
                     mr="1em"
                     // isLoading
+                    onClick={changeCompo}
                   >
                     Change Composition
                   </Button>
@@ -145,6 +108,7 @@ function BasketDetail({ address, logoutOfWeb3Modal, selectedChainId }) {
                   fontFamily="Montserrat"
                   mt="4em"
                   // isLoading
+                  onClick={exit}
                 >
                   Exit Basket
                 </Button>

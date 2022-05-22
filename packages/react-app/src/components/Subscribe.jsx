@@ -16,7 +16,7 @@ import Navbar from "./Navbar";
 import Tables from "./Tables";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 
-function Subscribe({ address, logoutOfWeb3Modal, selectedChainId }) {
+function Subscribe({ address, logoutOfWeb3Modal, selectedChainId, data, toSubscribe }) {
   const navigate = useNavigate();
   const { basketname } = useParams();
 
@@ -27,27 +27,6 @@ function Subscribe({ address, logoutOfWeb3Modal, selectedChainId }) {
   React.useEffect(() => {
     console.log(value);
   }, [value]);
-
-  const data = React.useMemo(
-    () => [
-      {
-        id: 12,
-        token: "millimetres (mm)",
-        weight: 25.4,
-      },
-      {
-        id: 32,
-        token: "centimetres (cm)",
-        weight: 30.48,
-      },
-      {
-        id: 11,
-        token: "metres (m)",
-        weight: 0.91444,
-      },
-    ],
-    [],
-  );
 
   const columns = React.useMemo(
     () => [
@@ -141,6 +120,7 @@ function Subscribe({ address, logoutOfWeb3Modal, selectedChainId }) {
                 fontFamily="Montserrat"
                 mt="3em"
                 // isLoading
+                onClick={toSubscribe}
               >
                 Subscribe
               </Button>

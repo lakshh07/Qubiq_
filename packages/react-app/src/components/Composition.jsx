@@ -16,7 +16,7 @@ import Navbar from "./Navbar";
 import Tables from "./Tables";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 
-function Composition({ address, logoutOfWeb3Modal, selectedChainId }) {
+function Composition({ address, logoutOfWeb3Modal, selectedChainId, data, investm, pExit }) {
   const navigate = useNavigate();
   const { basketname } = useParams();
 
@@ -27,27 +27,6 @@ function Composition({ address, logoutOfWeb3Modal, selectedChainId }) {
   React.useEffect(() => {
     console.log(value);
   }, [value]);
-
-  const data = React.useMemo(
-    () => [
-      {
-        id: 12,
-        token: "millimetres (mm)",
-        weight: 25.4,
-      },
-      {
-        id: 32,
-        token: "centimetres (cm)",
-        weight: 30.48,
-      },
-      {
-        id: 11,
-        token: "metres (m)",
-        weight: 0.91444,
-      },
-    ],
-    [],
-  );
 
   const columns = React.useMemo(
     () => [
@@ -128,6 +107,7 @@ function Composition({ address, logoutOfWeb3Modal, selectedChainId }) {
                     mt="4em"
                     mr="1em"
                     // isLoading
+                    onClick={investm}
                   >
                     Invest More
                   </Button>
@@ -145,6 +125,7 @@ function Composition({ address, logoutOfWeb3Modal, selectedChainId }) {
                   fontFamily="Montserrat"
                   mt="4em"
                   // isLoading
+                  onClick={pExit}
                 >
                   Partial Exit
                 </Button>

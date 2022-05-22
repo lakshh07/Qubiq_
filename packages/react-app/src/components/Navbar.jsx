@@ -1,26 +1,15 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Heading, Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 import { BsBasket2 } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import truncateMiddle from "truncate-middle";
 import { NETWORK } from "../constants";
-import CreateBasket from "./CreateBasket";
 
 function Navbar({ address, logoutOfWeb3Modal, selectedChainId }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -44,21 +33,22 @@ function Navbar({ address, logoutOfWeb3Modal, selectedChainId }) {
             w="min-content"
             p="4px 20px"
             className="btn-gradient"
+            visibility={pathname !== "/app/create" ? "visible" : "hidden"}
             _hover={{
               top: "-2px",
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             }}
             fontFamily="Montserrat"
             leftIcon={<BsBasket2 />}
-            onClick={onOpen}
+            onClick={() => navigate("/app/create")}
           >
             Create Basket
           </Button>
 
-          <CreateBasket isOpen={isOpen} onClose={onClose} />
-
           <Flex
+            position="relative"
             mr="1.5em"
+            top="-5px"
             p="4px 4px 4px 8px"
             borderRadius="12px"
             fontSize="16px"

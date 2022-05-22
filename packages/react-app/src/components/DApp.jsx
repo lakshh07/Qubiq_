@@ -5,8 +5,19 @@ import { BsBasket2Fill } from "react-icons/bs";
 import Baskets from "./Baskets";
 import Navbar from "./Navbar";
 import Dashboard from "./Dashboard";
+import { getContractProvider } from "../utils/contract";
 
 function DApp({ address, logoutOfWeb3Modal, selectedChainId }) {
+  async function getTesting() {
+    const contract = getContractProvider();
+    const data = await contract.owner();
+    console.log(data);
+  }
+
+  useEffect(() => {
+    // getTesting();
+  }, []);
+
   return (
     <>
       <Tabs variant="solid-rounded" orientation="vertical" defaultIndex={1}>
@@ -41,7 +52,7 @@ function DApp({ address, logoutOfWeb3Modal, selectedChainId }) {
               <TabPanel mx="1.5em"></TabPanel>
 
               <TabPanel>
-                <Box mt="9em" mx="2em">
+                <Box mt="7em" mx="2em">
                   <Dashboard />
                 </Box>
               </TabPanel>
